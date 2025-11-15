@@ -42,4 +42,16 @@ public class Email {
             return "";
         }
     }
+
+    private String randPassword(int length) {
+        String setPassword = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&-";
+        char[] password = new char[length];
+
+        for (int i = 0; i < length; i++) {
+            int rand = (int) (Math.random() * setPassword.length());
+            password[i] = setPassword.charAt(rand);
+        }
+
+        return new String(password);
+    }
 }
