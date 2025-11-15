@@ -17,13 +17,17 @@ public class Email {
     public Email(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        mailboxCap = 0;
+        alternateEmail = "";
+
         department = setDepartment();
         System.out.println("Department selected: " + department);
-        password = genPassword(defPasswordLen);
+
+        password = genPassword();
         System.out.println("Your password is: " + password);
-        mailboxCap = 0;
-        email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + department + "." + company;
-        alternateEmail = "";
+
+        email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" +
+                department.toLowerCase() + "." + company;
     }
 
     private String setDepartment() {
@@ -50,11 +54,11 @@ public class Email {
         }
     }
 
-    private String genPassword(int length) {
+    private String genPassword() {
         String setPassword = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&-";
-        char[] password = new char[length];
+        char[] password = new char[defPasswordLen];
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < defPasswordLen; i++) {
             int rand = (int) (Math.random() * setPassword.length());
             password[i] = setPassword.charAt(rand);
         }
@@ -62,15 +66,17 @@ public class Email {
         return new String(password);
     }
 
-    public void setMailboxCap(int cap) {
-        mailboxCap = cap;
-    }
+    public void setMailboxCap(int cap) {mailboxCap = cap;}
+    public void setAlternateEmail(String email) {this.alternateEmail = email;}
+    public void customPassword(String password) {this.password = password;}
 
-    public void setAlternateEmail(String email) {
-        this.alternateEmail = email;
-    }
+    public int getMailboxCap() {return mailboxCap;}
+    public String getAlternateEmail() {return alternateEmail;}
+    public String getPassword() {return password;}
 
-    public void customPassword(String password) {
-            this.password = password;
+    public String showInfo(){
+        return "User Name: " + firstName + " " + lastName +
+                "\nUser Email: " + email +
+                "\nMailbox Capacity: " + mailboxCap;
     }
 }
